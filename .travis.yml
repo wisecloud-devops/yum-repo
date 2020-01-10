@@ -57,6 +57,6 @@ script:
    createrepo /rpms"
    
 - sudo chmod -R 755 ${PWD}/rpms
-- docker build -t registry.cn-shenzhen.aliyuncs.com/hi30567721/yum-repo:$TRAVIS_BRANCH .
+- docker build -t registry.cn-shenzhen.aliyuncs.com/hi30567721/yum-repo:v1.15.4 .
 - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD registry.cn-shenzhen.aliyuncs.com
-- docker push registry.cn-shenzhen.aliyuncs.com/hi30567721/yum-repo/yum-repo:$TRAVIS_BRANCH
+- docker push registry.cn-shenzhen.aliyuncs.com/hi30567721/yum-repo:v1.15.4

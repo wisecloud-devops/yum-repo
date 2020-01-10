@@ -11,8 +11,8 @@ before_install:
 env:
  global:
    - CEPH_VERSION=nautilus
-   - KUBE_VERSION=1.15.7
-   - DOCKER_VERSION=18.09.9-3
+   - KUBE_VERSION=1.15.4
+   - DOCKER_VERSION=1.13.1
  
 script:
 - >
@@ -24,7 +24,7 @@ script:
    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo &&
    mkdir -p /rpms/centos74 &&
    yum remove -y python-chardet chrony &&
-   yum -y install --downloadonly --downloaddir=/rpms/centos74 docker-ce-${DOCKER_VERSION}.el7.x86_64 docker-ce-cli-${DOCKER_VERSION}.el7.x86_64 docker-python docker-compose python-chardet python-requests &&
+   yum -y install --downloadonly --downloaddir=/rpms/centos74 docker docker-python docker-compose python-chardet python-requests &&
    yum -y install --downloadonly --downloaddir=/rpms/centos74 chrony audit rsync jq git tcpdump nc bind-utils net-tools ipvsadm graphviz &&
    yum -y install --downloadonly --downloaddir=/rpms/centos74 ceph-deploy ceph ceph-radosgw radosgw-agent rbd-nbd rbd-mirror open-vm-tools nfs-utils && 
    yum -y install --downloadonly --downloaddir=/rpms/centos74 kubernetes-cni kubectl-${KUBE_VERSION} kubelet-${KUBE_VERSION} kubeadm-${KUBE_VERSION}"
@@ -36,7 +36,7 @@ script:
    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo &&
    mkdir -p /rpms/centos75 &&
    yum remove -y python-chardet chrony &&
-   yum -y install --downloadonly --downloaddir=/rpms/centos75 docker-ce-${DOCKER_VERSION}.el7.x86_64 docker-ce-cli-${DOCKER_VERSION}.el7.x86_64 docker-python docker-compose python-chardet python-requests &&
+   yum -y install --downloadonly --downloaddir=/rpms/centos75 docker docker-python docker-compose python-chardet python-requests &&
    yum -y install --downloadonly --downloaddir=/rpms/centos75 chrony audit rsync jq git tcpdump nc bind-utils net-tools ipvsadm graphviz &&
    yum -y install --downloadonly --downloaddir=/rpms/centos75 ceph-deploy ceph ceph-radosgw radosgw-agent rbd-nbd rbd-mirror open-vm-tools nfs-utils && 
    yum -y install --downloadonly --downloaddir=/rpms/centos75 kubernetes-cni kubectl-${KUBE_VERSION} kubelet-${KUBE_VERSION} kubeadm-${KUBE_VERSION}"
@@ -48,7 +48,7 @@ script:
    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo &&
    mkdir -p /rpms/centos76 &&
    yum remove -y python-chardet chrony &&
-   yum -y install --downloadonly --downloaddir=/rpms/centos76 docker-ce-${DOCKER_VERSION}.el7.x86_64 docker-ce-cli-${DOCKER_VERSION}.el7.x86_64 docker-python docker-compose python-chardet python-requests &&
+   yum -y install --downloadonly --downloaddir=/rpms/centos76 docker docker-python docker-compose python-chardet python-requests &&
    yum -y install --downloadonly --downloaddir=/rpms/centos76 chrony audit rsync jq git tcpdump nc bind-utils net-tools ipvsadm graphviz &&
    yum -y install --downloadonly --downloaddir=/rpms/centos76 ceph-deploy ceph ceph-radosgw radosgw-agent rbd-nbd rbd-mirror open-vm-tools nfs-utils && 
    yum -y install --downloadonly --downloaddir=/rpms/centos76 kubernetes-cni kubectl-${KUBE_VERSION} kubelet-${KUBE_VERSION} kubeadm-${KUBE_VERSION} &&
@@ -57,6 +57,6 @@ script:
    createrepo /rpms"
    
 - sudo chmod -R 755 ${PWD}/rpms
-- docker build -t wise2c/yum-repo:$TRAVIS_BRANCH .
-- docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-- docker push wise2c/yum-repo:$TRAVIS_BRANCH
+- docker build -t registry.cn-shenzhen.aliyuncs.com/hi30567721/yum-repo:$TRAVIS_BRANCH .
+- docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD registry.cn-shenzhen.aliyuncs.com
+- docker push registry.cn-shenzhen.aliyuncs.com/hi30567721/yum-repo/yum-repo:$TRAVIS_BRANCH
